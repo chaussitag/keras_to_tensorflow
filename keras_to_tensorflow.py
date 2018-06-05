@@ -124,9 +124,16 @@ except ValueError as err:
 num_output = args.num_outputs
 pred = [None]*num_output
 pred_node_names = [None]*num_output
-for i in range(num_output):
-    pred_node_names[i] = args.output_node_prefix+str(i)
-    pred[i] = tf.identity(net_model.outputs[i], name=pred_node_names[i])
+
+for i, out_node in enumerate(net_model.outputs):
+    print(out_node)
+    print(type(out_node))
+    print("")
+    pred_node_names[i] = out_node.op.name
+
+# for i in range(num_output):
+#     pred_node_names[i] = args.output_node_prefix+str(i)
+#     pred[i] = tf.identity(net_model.outputs[i], name=pred_node_names[i])
 print('output nodes names are: ', pred_node_names)
 
 
